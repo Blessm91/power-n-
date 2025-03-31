@@ -22,16 +22,16 @@ const readline = require("readline").createInterface({
 
 function askForInputs() {
   readline.question("Enter a floating point number (x): ", (x) => {
-    readline.question("Enter a non-negative integer (n): ", (n) => {
-      x = parseFloat(x);
-      n = parseInt(n);
+    // Validate x immediately
+    x = parseFloat(x);
+    if (isNaN(x)) {
+      console.log("Error: x must be a valid number");
+      askForInputs();
+      return;
+    }
 
-      // Validate x is a valid number
-      if (isNaN(x)) {
-        console.log("Error: x must be a valid number");
-        askForInputs();
-        return;
-      }
+    readline.question("Enter a non-negative integer (n): ", (n) => {
+      n = parseInt(n);
 
       // Validate that n is a non-negative integer
       if (!Number.isInteger(n) || n < 0) {
