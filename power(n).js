@@ -26,6 +26,13 @@ function askForInputs() {
       x = parseFloat(x);
       n = parseInt(n);
 
+      // Validate that n is a non-negative integer
+      if (!Number.isInteger(n) || n < 0) {
+        console.log("Error: n must be a non-negative whole number (0, 1, 2, etc.)");
+        askForInputs();
+        return;
+      }
+
       let result = power(x, n);
       console.log(`${x} to the power of ${n} is: ${result}`);
 
