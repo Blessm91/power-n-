@@ -26,6 +26,13 @@ function askForInputs() {
       x = parseFloat(x);
       n = parseInt(n);
 
+      // Validate x is a valid number
+      if (isNaN(x)) {
+        console.log("Error: x must be a valid number");
+        askForInputs();
+        return;
+      }
+
       // Validate that n is a non-negative integer
       if (!Number.isInteger(n) || n < 0) {
         console.log("Error: n must be a non-negative whole number (0, 1, 2, etc.)");
