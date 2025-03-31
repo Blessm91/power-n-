@@ -15,22 +15,30 @@ function power(x, n) {
   }
 }
 
-// Get user input
 const readline = require("readline").createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-readline.question("Enter a floating point number (x): ", (x) => {
-  readline.question("Enter a non-negative integer (n): ", (n) => {
-    // Convert inputs to appropriate types
-    x = parseFloat(x);
-    n = parseInt(n);
+function askForInputs() {
+  readline.question("Enter a floating point number (x): ", (x) => {
+    readline.question("Enter a non-negative integer (n): ", (n) => {
+      x = parseFloat(x);
+      n = parseInt(n);
 
-    // Calculate and display result
-    let result = power(x, n);
-    console.log(`${x} to the power of ${n} is: ${result}`);
+      let result = power(x, n);
+      console.log(`${x} to the power of ${n} is: ${result}`);
 
-    readline.close();
+      readline.question("Would you like to calculate another power? (yes/no): ", (answer) => {
+        if (answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'y') {
+          askForInputs();
+        } else {
+          readline.close();
+        }
+      });
+    });
   });
-});
+}
+
+// Start the program
+askForInputs();
