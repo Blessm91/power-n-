@@ -41,7 +41,7 @@ function askForInputs() {
       }
 
       let result = power(x, n);
-      console.log(`${x} to the power of ${n} is: ${result}`);
+      console.log(`${x} to the power of ${n} is: ${result.toFixed(4)}`);
 
       readline.question("Would you like to calculate another power? (yes/no): ", (answer) => {
         if (answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'y') {
