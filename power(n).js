@@ -1,58 +1,27 @@
-function power(x, n) {
-  // Base case: anything raised to 0 is 1
-  if (n === 0) {
-    return 1;
-  }
+// Recursive power function (similar to leetcode style)
+const power = (x, n) => n === 0 ? 1 : n % 2 === 0 ? power(x, n/2) ** 2 : x * power(x, n-1);
 
-  // Recursive case
-  // For even numbers, we can optimize by using x^n = (x^(n/2))^2
-  if (n % 2 === 0) {
-    let half = power(x, n / 2);
-    return half * half;
-  } else {
-    // For odd numbers, x^n = x * x^(n-1)
-    return x * power(x, n - 1);
-  }
-}
-
-const readline = require("readline").createInterface({
-  input: process.stdin,
-  output: process.stdout,
+// Input handling with minimal code
+const rl = require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
 });
 
-function askForInputs() {
-  readline.question("Enter a floating point number (x): ", (x) => {
-    // Validate x immediately
-    x = parseFloat(x);
-    if (isNaN(x)) {
-      console.log("Error: x must be a valid number");
-      askForInputs();
-      return;
-    }
-
-    readline.question("Enter a non-negative integer (n): ", (n) => {
-      n = parseInt(n);
-
-      // Validate that n is a non-negative integer
-      if (!Number.isInteger(n) || n < 0) {
-        console.log("Error: n must be a non-negative whole number (0, 1, 2, etc.)");
-        askForInputs();
-        return;
-      }
-
-      let result = power(x, n);
-      console.log(`${x} to the power of ${n} is: ${result.toFixed(4)}`);
-
-      readline.question("Would you like to calculate another power? (yes/no): ", (answer) => {
-        if (answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'y') {
-          askForInputs();
-        } else {
-          readline.close();
+const getInput = () => {
+    rl.question("x: ", x => {
+        if (isNaN(x = parseFloat(x))) {
+            console.log("Invalid x");
+            return getInput();
         }
-      });
+        rl.question("n: ", n => {
+            if (!Number.isInteger(n = +n) || n < 0) {
+                console.log("Invalid n");
+                return getInput();
+            }
+            console.log(`${x}^${n} = ${power(x, n).toFixed(4)}`);
+            rl.question("Again? (y/n): ", a => a.toLowerCase()[0] === 'y' ? getInput() : rl.close());
+        });
     });
-  });
-}
+};
 
-// Start the program
-askForInputs();
+getInput();
