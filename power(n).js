@@ -8,6 +8,7 @@ const rl = require("readline").createInterface({
 });
 
 const getInput = () => {
+    console.log("Need help squaring a number?");  // This displays a message to the user
     rl.question("x: ", x => {
         if (isNaN(x = parseFloat(x))) {
             console.log("Invalid x");
